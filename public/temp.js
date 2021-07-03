@@ -11,9 +11,8 @@ const myPeer = new Peer(undefined, {
   })
 
 
-myVideo.muted = true;
-
-let myVideoFeed;
+   
+    let myVideoFeed;
 navigator.mediaDevices.getUserMedia({
         video: true,
         audio: true
@@ -36,27 +35,27 @@ navigator.mediaDevices.getUserMedia({
             console.log( "connected user's id - " + userId);
             connectToUser(userId , videoAudio);
           })
-          // socket.off('user-connected' , (userId)=>{
-          //   console.log( "connected user's id - " + userId);
-          //   connectToUser(userId , videoAudio);
-          // })
+          socket.off('user-connected' , (userId)=>{
+            console.log( "connected user's id - " + userId);
+            connectToUser(userId , videoAudio);
+          })
          
-      });
+      })
 
-myPeer.on('open' , userId=>{
+          myPeer.on('open' , userId=>{
       console.log("my user id - " + userId);
       socket.emit('join-room', RoomId , userId ,user);
-});
+    })
  
-const connectToUser=(userId , stream)=>{
+      const connectToUser=(userId , stream)=>{
         var call = myPeer.call(userId, stream)
         const video = document.createElement('video')
         call.on('stream', userVideoStream => {
-        addVideoStream(video , userVideoStream);
+            addVideoStream(video , userVideoStream);
         })
        }
 
-       function addVideoStream(video, stream) {
+      function addVideoStream(video, stream) {
         video.srcObject = stream
         video.addEventListener('loadedmetadata', () => {
           video.play()
@@ -136,10 +135,11 @@ const inviteButton = document.getElementById("invite");
 
           messages_m.innerHTML =
           messages_m.innerHTML +
-          `<div class="message_card">
-              <p class="bold">Me:</p>
-              <p class="textmsg">${text.value}</p>
-              
+          `<div class="message">
+              <b><i class="far fa-user-circle"></i> <span> ${
+                 "me" 
+              }</span> </b>
+              <span>${text.value}</span>
           </div>`;
           text.value = "";
 
@@ -149,25 +149,24 @@ const inviteButton = document.getElementById("invite");
 
       text.addEventListener("keydown", (e) => {
         if (e.key === "Enter" && text.value.length !== 0) {
-          socket.emit('message', RoomId, text.value , user);
+          socket.emit("message", text.value);
           
           messages_m.innerHTML =
           messages_m.innerHTML +
           `<div class="message_card">
-              <p class="bold">Me:</p>
+              <p class="bold">Me</p>
               <p class="textmsg">${text.value}</p>
-              
           </div>`;
           text.value = "";
         }
       });
       socket.on("createMessage" , (message , username)=>{
-       
         messages_m.innerHTML =
         messages_m.innerHTML +
-        `<div class="message_card">
-              <p class="bold"> ${username}:</p>
-              <p class="textmsg">${message}</p>
-              
-          </div>` ;
+        `<div class="message">
+            <b><i class="far fa-user-circle"></i> <span> ${
+               username
+            }</span> </b>
+            <span>${message}</span>
+        </div>`;
       })

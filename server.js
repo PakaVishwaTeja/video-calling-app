@@ -35,18 +35,18 @@ app.get("/:room",function(req,res)
   res.render("room",{roomId:req.params.room});
 });
 a.on('connection', socket => {
-    socket.on('join-room', (RoomId , userId) => {
-    //  console.log( userId);
+    socket.on('join-room', (RoomId , userId,username) => {
+     console.log( userId);
     socket.join(RoomId)
     socket.broadcast.to(RoomId).emit('user-connected' , userId);
+    socket.on('message', (RoomId, message , username) => {
+      socket.broadcast.to(RoomId).emit("createMessage", message, username);
     })
-    socket.off('join-room', (RoomId , userId) => {
-    //  console.log( userId);
-    socket.join(RoomId)
-    socket.broadcast.to(RoomId).emit('user-connected' , userId);
-    })
-    
   
+
+    });
+    
+    
   }
     
     );

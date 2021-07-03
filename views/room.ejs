@@ -25,27 +25,40 @@
         <h2>Teams</h2>
     </div>    
     <div class="rest">
+        <div class="video_messages">
     <div id="video-container" >
-    <div class="videoCard"><video></video><p>hello</p></div>
-    <div class="videoCard"><video></video><p>hello</p></div>
-    <div class="videoCard"><video></video><p>hello</p></div>
-    <div class="videoCard"><video></video><p>hello</p></div>
-    <div class="videoCard"><video></video><p>hello</p></div>
-    <div class="videoCard"><video></video><p>hello</p></div>
-    <div class="videoCard"><video></video><p>hello</p></div>
-     
-     
+   <!-- <video></video>
+      -->
     </div>
+    <div class="messages" id="messagebox">
+        <div class="main__right hide">
+            <div class="main__chat_window">
+                <div class="messages_area" >
+      
+                </div>
+            </div>
+            <div class="main__message_container">
+              <input id="chat_message" type="text" autocomplete="off" placeholder="send a message!">
+              <div id="send" class="options__button">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
     <div class="menubar">
     <div class="container">
-    <div title="mic off"><i class="fas fa-microphone-slash "></i></div>
-    <div title="video off"><i class="fas fa-video-slash"></i></div>
-    <div title="end call"><i  class=" rotate fas fa-phone"></i></div>
+    <div title="mic off" id="muteButton"><i class="fas fa-microphone-slash "></i></div>
+    <div title="video off" id="stopVideo"><i class="fas fa-video-slash"></i></div>
+    <div title="end call" class="background__red" id="end" ><i  class=" rotate fas fa-phone"></i></div>
     </div>
 
     <div class="controlls">
-        <i class="fas fa-comment-dots"></i>
-        <div class="add_participants">
+        
+        <div class="add_participants" id="chat"  >
+            <i class="fas fa-comment-dots"></i>
+        </div>
+        <div class="add_participants" id="invite">
         <i class="fas fa-user-plus"> </i>
         </div>
 
@@ -53,11 +66,11 @@
     </div>
 
     </div>
-    <div class="messages"></div>
+    
      <!-- <p id="demo"></p> -->
    </div>
 </body>
-<script>        document.getElementById("demo").innerHTML = RoomId;
-</script>
+<!-- <script>        document.getElementById("demo").innerHTML = RoomId;
+</script> -->
 <script src="script.js" defer></script>
 </html>
